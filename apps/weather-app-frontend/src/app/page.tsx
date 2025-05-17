@@ -1,13 +1,25 @@
 'use client'
 import {getUsers} from './api/users/users-route';
-import InteractiveButton from './components/interactive-button';
+import React from 'react'
 
 export default function Index() {
+
+  const [users, setUsers] = React.useState<any[]>([])
+
+  const handlGetUsers = async () => {
+    const users = await getUsers()
+    setUsers(users)
+  }
 
   return (
     <>
       <h1>Weather App</h1>
-      <InteractiveButton onClick={getUsers} />
+      {users && <ul>
+        {users.map((user: any) => {
+          return <li key={user.id}>{user.name}</li>
+        })}
+      </ul>}
+      <button onClick={handlGetUsers}>Get Users</button>
     </>
   )
 }
