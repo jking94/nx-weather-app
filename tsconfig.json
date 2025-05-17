@@ -8,6 +8,12 @@
     },
     {
       "path": "./apps/weather-app-frontend"
+    },
+    {
+      "path": "./apps/weather-app-backend-e2e"
+    },
+    {
+      "path": "./apps/weather-app-backend"
     }
   ]
 }
