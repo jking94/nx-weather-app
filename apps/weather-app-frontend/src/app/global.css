@@ -237,6 +237,7 @@ pre {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   align-items: center;
   display: flex;
+  background-color: background-color;
 }
 .button-pill svg {
   transition-property: background-color, border-color, color, fill, stroke,
