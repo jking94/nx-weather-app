@@ -24,10 +24,43 @@ module.exports = {
     extend: {
       colors: {
         primary: "var(--color-primary)",
-        secondary: "var(--color-secondary)",
-        bgPrimary: "var(--color-bg-primary)",
-        tBase: "var(--color-text-base)"
-      }
+        lightGrey: "var(--color-light-grey)",
+        grey: "var(--color-grey)"
+      },
+      backgroundImage: {
+        'grey-gradient-right': 'var(--color-grey-gradient-right)',
+      },
+      fontFamily: {
+        "sans": ['arial', 'sans-serif']
+      },
+      fontWeight: {
+        light: '300',
+        normal: '400',
+        medium: '500',
+        semibold: '600',
+        bold: '700',
+        extrabold: '800',
+     },
+      spacing: {
+        '2': '2px',
+        '4': '4px',
+        '8': '8px',
+        '12': '12px',
+        '16': '16px',
+        '24': '24px'
+      },
+      height: {
+        '32': '32px'
+      },
+      borderWidth: {
+        '2px': '2px',
+        DEFAULT: '1px'
+      },
+      borderRadius: {
+        'xl': '1rem',         
+        '2xl': '1.5rem',
+        'custom': '0.75rem', 
+      },
     },
   },
   plugins: [],

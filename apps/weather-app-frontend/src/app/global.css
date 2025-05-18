@@ -2,11 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer bqse {
+@layer base {
   :root{
-    --color-primary: hsl(0, 0%, 0%);
-    --color-secondary: hsl(0, 0%, 50%);
+    --color-primary: #000000;
     --color-text-base: hsll(0, 0%, 100%);
-    --color-bg-promary: hsl(0, 0%, 100%);
+    --color-bg-primary: hsl(0, 0%, 100%);
+    --color-light-grey:hsl(217.89, 10.61%, 85%);
+    --color-grey:#b2b2b2;
+    --color-grey-gradient-right: linear-gradient(to right, hsl(217.89, 10.61%, 85%), hsl(217.89, 10.61%, 95%));
   }
+}
+
+html {
+  @apply font-sans
 }
