@@ -2,3 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer bqse {
+  :root{
+    --color-primary: hsl(0, 0%, 0%);
+    --color-secondary: hsl(0, 0%, 50%);
+    --color-text-base: hsll(0, 0%, 100%);
+    --color-bg-promary: hsl(0, 0%, 100%);
+  }
+}

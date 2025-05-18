@@ -33,7 +33,7 @@ const Search: React.FC<SearchProps> = ({setCityWeatherData}) => {
                     return <div className='cursor-pointer m-2 border-2' onClick={() => {getCityWeatherData(city)}} key={city.lat}><b>City:</b> {city.name}, <b>Country:</b> {city.country}, <b>State:</b> {city.state} </div>
                 })}
             </div>
-            <button onClick={getCityGeoCoderData}>Click to search city</button>
+            <button className="big-primary text-tBase" onClick={getCityGeoCoderData}>Click to search city</button>
         </div>
   )
 }

@@ -8,6 +8,7 @@ export default function Index() {
 
   return (
     <>
+      <h1>Weather App</h1>
       <div className='flex justify-center'>
         <Search setCityWeatherData={setCityWeatherData} />
       </div>
