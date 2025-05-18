@@ -19,4 +19,9 @@ export class AppController {
   getGeoCoderInfoByCity(@Param('cityName') cityName: string) {
     return this.appService.getGeoCoderInfoByCity(cityName);
   }
+
+  @Get('location/:lat/:lon')
+  getLocationInfoByLatLon(@Param('lat') latitude: number, @Param('lon') longitude: number) {
+    return this.appService.getLocationInfoByLatLon(latitude, longitude);
+  }
 }
