@@ -11,10 +11,17 @@ export class AppService {
   getData(): { message: string } {
     return { message: 'Hello API' };
   }
+
   async getUsers() {
-    const ApiKey = this.configService.get<string>('OPEN_WEATHER_API_KEY');
-    console.log(ApiKey);
     const response = await firstValueFrom(this.httpService.get('https://jsonplaceholder.typicode.com/users'));
+    return response.data;
+  }
+
+  async getGeoCoderInfoByCity(cityName: string) {
+    const ApiKey = this.configService.get<string>('OPEN_WEATHER_API_KEY');
+    const url = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=5&appid=${ApiKey}`
+    const response = await firstValueFrom(this.httpService.get(url));
+    console.log('test')
     return response.data;
   }
 }
