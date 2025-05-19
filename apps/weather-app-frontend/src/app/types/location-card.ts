@@ -7,5 +7,4 @@ export type LocationCardType = {
     dailyHigh: number;
     dailyLow: number;
     weatherDesc: string[];
-
 }
