@@ -2,8 +2,9 @@
 'use client'
 import React from 'react'
 import Card from './card';
+import { LocationDataModel } from '../types/location-data-model';
 type DailyWeatherProps = {
-    cityWeatherData: any;
+    cityWeatherData: LocationDataModel;
 }
 
 const DailyWeather: React.FC<DailyWeatherProps> = ({cityWeatherData}) => {
@@ -17,7 +18,7 @@ const DailyWeather: React.FC<DailyWeatherProps> = ({cityWeatherData}) => {
             <hr/>
             <div>Daily High: {cityWeatherData.main.temp_max}</div>
             <div>Daily Low: {cityWeatherData.main.temp_min}</div>
-            {cityWeatherData.weather.map((weather: any) => {
+            {cityWeatherData.weather.map((weather) => {
                 return <div key={weather.id}>{weather.main} - {weather.description}</div>
             })}
         </Card>
