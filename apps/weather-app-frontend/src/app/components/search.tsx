@@ -1,39 +1,45 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
-import React from 'react'
-import { getCityInfoByLatLon, getGeoCoderInfoByCity } from '../api/geo/geo-route'
+import React, {useEffect} from 'react'
+import { getCityInfoByLatLon, getGeoCoderInfoByCity, getMultipleCityInfoByLatLon } from '../api/geo/geo-routes'
+import { GeoCoderDataModel } from '../types/geo-coder-data-model'
+import { LocationCardType } from '../types/location-card'
 type SearchProps = {
-    setCityWeatherData: (cityWeatherData: any) => void
+    setCityCards: (cityCards: LocationCardType[]) => void
 }
 
-const Search: React.FC<SearchProps> = ({setCityWeatherData}) => {
+const Search: React.FC<SearchProps> = ({setCityCards}) => {
 
   const [cityNameSearch, setCityNameSearch] = React.useState<string>('')
-  const [cities, setCities] = React.useState<any>(null)
+  const [submitDisabled, setSubmitDisabled] = React.useState<boolean>(true)
 
-  const handleCitySearchChange = (event: any) => {
-    setCityNameSearch(event.target.value);
-  }
+  useEffect(() => {
+    if(cityNameSearch !== ''){
+        setSubmitDisabled(false)
+    } else setSubmitDisabled(true)
+  }, [cityNameSearch]); 
 
-  const getCityGeoCoderData = async () => {
-    const cityData = await getGeoCoderInfoByCity(cityNameSearch)
-    setCities(cityData);
-  }
-    const getCityWeatherData = async (city: any) => {
-        const cityWeatherData = await getCityInfoByLatLon(city.lat, city.lon);
-        console.log('hotpink - cityWeatherData: ', cityWeatherData);
-        setCityWeatherData(cityWeatherData);
+    const handleCitySearchChange = (event: any) => {
+        setCityNameSearch(event.target.value);
+    }
+
+    const getCityCards = async () => {
+        const cityData: GeoCoderDataModel = await getGeoCoderInfoByCity(cityNameSearch)
+        const cityCards = await getMultipleCityInfoByLatLon(cityData)
+        setCityCards(cityCards)
+        setCityNameSearch('')
     }
 
   return (
-        <div id='city-search'>
-            <div id="city-name-search-dropdown" className="dropdown-content">
-                <input type='text' placeholder="Search by city name" id="myInput" onKeyUp={handleCitySearchChange}></input>
-                {cities && cities.map((city: any) => {
-                    return <div className='cursor-pointer m-2 border-2' onClick={() => {getCityWeatherData(city)}} key={city.lat}><b>City:</b> {city.name}, <b>Country:</b> {city.country}, <b>State:</b> {city.state} </div>
-                })}
+        <div id='search-city-input'>
+            <div className='flex justify-center'>
+                <input value={cityNameSearch} className='h-32 px-6 rounded-xl border' type='text' placeholder="Search by city name" id="myInput" onChange={handleCitySearchChange}></input>
+                <button
+                    disabled={submitDisabled}
+                    className={`ml-12 px-6 rounded-xl border bg-grey-gradient-right ${submitDisabled ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+                    onClick={getCityCards}>Search
+                </button>
             </div>
-            <button onClick={getCityGeoCoderData}>Click to search city</button>
         </div>
   )
 }
