@@ -16,7 +16,7 @@ const Search: React.FC<SearchProps> = ({setCityCards}) => {
   useEffect(() => {
     if(cityNameSearch !== ''){
         setSubmitDisabled(false)
-    }
+    } else setSubmitDisabled(true)
   }, [cityNameSearch]); 
 
     const handleCitySearchChange = (event: any) => {
@@ -33,9 +33,8 @@ const Search: React.FC<SearchProps> = ({setCityCards}) => {
   return (
         <div id='search-city-input'>
             <div className='flex justify-center'>
-                <input className='h-32 px-6 rounded-xl border' type='text' placeholder="Search by city name" id="myInput" onKeyUp={handleCitySearchChange}></input>
+                <input value={cityNameSearch} className='h-32 px-6 rounded-xl border' type='text' placeholder="Search by city name" id="myInput" onChange={handleCitySearchChange}></input>
                 <button
-                    value={cityNameSearch}
                     disabled={submitDisabled}
                     className={`ml-12 px-6 rounded-xl border bg-grey-gradient-right ${submitDisabled ? 'cursor-not-allowed' : 'cursor-pointer'}`}
                     onClick={getCityCards}>Search
