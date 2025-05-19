@@ -3,11 +3,9 @@ import React from 'react'
 import Search from './components/search';
 import DailyWeather from './components/daily-weather';
 import { LocationCardType } from './types/location-card';
-import { LocationDataModel } from './types/location-data-model';
 import { v4 as uuidv4 } from 'uuid';
 
 export default function Index() {
-  const [cityWeatherData, setCityWeatherData] = React.useState<LocationDataModel | null>(null)
   const [cityCards, setCityCards] = React.useState<LocationCardType[]>([])
 
   return (
@@ -19,16 +17,10 @@ export default function Index() {
         </div>
       </div>
       <hr/>
-      <br/>
-      <div className='flex justify-center'>
-        <Search setCityWeatherData={setCityWeatherData} setCityCards={setCityCards} />
+      <div className='flex justify-center pt-12'>
+        <Search setCityCards={setCityCards} />
       </div>
-      <br/>
-      <br/>
-      {/* <div className='flex justify-center'>
-        {cityWeatherData && <DailyWeather cityWeatherData={cityWeatherData} />}
-      </div> */}
-      {cityCards &&<div className="flex flex-row">
+      {cityCards && <div className="grid grid-cols-5 gap-24 pt-36">
         {cityCards.map((cityCard) => {
           return <DailyWeather key={uuidv4()} cityWeatherData={cityCard}/>
         })}

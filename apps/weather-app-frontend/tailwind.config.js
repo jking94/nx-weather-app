@@ -29,6 +29,8 @@ module.exports = {
       },
       backgroundImage: {
         'grey-gradient-right': 'var(--color-grey-gradient-right)',
+        'grey-gradient-down': 'var(--color-grey-gradient-down)',
+        'grey-gradient-up': 'var(--color-grey-gradient-up)'
       },
       fontFamily: {
         "sans": ['arial', 'sans-serif']
@@ -47,7 +49,8 @@ module.exports = {
         '8': '8px',
         '12': '12px',
         '16': '16px',
-        '24': '24px'
+        '24': '24px',
+        '36': '36px'
       },
       height: {
         '32': '32px'

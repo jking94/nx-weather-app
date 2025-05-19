@@ -5,14 +5,12 @@ import { getCityInfoByLatLon, getGeoCoderInfoByCity, getMultipleCityInfoByLatLon
 import { GeoCoderDataModel } from '../types/geo-coder-data-model'
 import { LocationCardType } from '../types/location-card'
 type SearchProps = {
-    setCityWeatherData: (cityWeatherData: any) => void
     setCityCards: (cityCards: LocationCardType[]) => void
 }
 
-const Search: React.FC<SearchProps> = ({setCityWeatherData, setCityCards}) => {
+const Search: React.FC<SearchProps> = ({setCityCards}) => {
 
   const [cityNameSearch, setCityNameSearch] = React.useState<string>('')
-//   const [cities, setCities] = React.useState<any>([])
   const [submitDisabled, setSubmitDisabled] = React.useState<boolean>(true)
 
   useEffect(() => {
@@ -25,35 +23,24 @@ const Search: React.FC<SearchProps> = ({setCityWeatherData, setCityCards}) => {
         setCityNameSearch(event.target.value);
     }
 
-    // const getCityGeoCoderData = async () => {
-    //     const cityData = await getGeoCoderInfoByCity(cityNameSearch)
-    //     setCities(cityData);
-    // }
-    
     const getCityCards = async () => {
         const cityData: GeoCoderDataModel = await getGeoCoderInfoByCity(cityNameSearch)
-        // setCities(cityData);
         const cityCards = await getMultipleCityInfoByLatLon(cityData)
         setCityCards(cityCards)
-    }
-
-    const getCityWeatherData = async (city: any) => {
-        const cityWeatherData = await getCityInfoByLatLon(city.lat, city.lon);
-        setCityWeatherData(cityWeatherData);
+        setCityNameSearch('')
     }
 
   return (
         <div id='search-city-input'>
             <div className='flex justify-center'>
                 <input className='h-32 px-6 rounded-xl border' type='text' placeholder="Search by city name" id="myInput" onKeyUp={handleCitySearchChange}></input>
-                {/* <button disabled={submitDisabled} className={`ml-12 px-6 rounded-xl border bg-grey-gradient-right ${submitDisabled ? 'cursor-not-allowed' : 'cursor-pointer'}`} onClick={getCityGeoCoderData}>Search City</button> */}
-                <button disabled={submitDisabled} className={`ml-12 px-6 rounded-xl border bg-grey-gradient-right ${submitDisabled ? 'cursor-not-allowed' : 'cursor-pointer'}`} onClick={getCityCards}>TEST</button>
+                <button
+                    value={cityNameSearch}
+                    disabled={submitDisabled}
+                    className={`ml-12 px-6 rounded-xl border bg-grey-gradient-right ${submitDisabled ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+                    onClick={getCityCards}>Search
+                </button>
             </div>
-            {/* <div className="pt-6" id="search-city-names">
-                {cities && cities.map((city: any) => {
-                    return <div className='cursor-pointer m-2 py-4' onClick={() => {getCityWeatherData(city)}} key={city.lat}><b>City:</b> {city.name}, <b>Country:</b> {city.country}, <b>State:</b> {city.state} </div>
-                })}
-            </div> */}
         </div>
   )
 }

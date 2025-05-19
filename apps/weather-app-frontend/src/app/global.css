@@ -10,9 +10,14 @@
     --color-light-grey:hsl(217.89, 10.61%, 85%);
     --color-grey:#b2b2b2;
     --color-grey-gradient-right: linear-gradient(to right, hsl(217.89, 10.61%, 85%), hsl(217.89, 10.61%, 95%));
+    --color-grey-gradient-down: linear-gradient(to bottom, hsl(217.89, 10.61%, 85%), hsl(217.89, 10.61%, 95%));
+    --color-grey-gradient-up: linear-gradient(to top, hsl(217.89, 10.61%, 85%), hsl(217.89, 10.61%, 95%));
   }
 }
 
 html {
   @apply font-sans
+}
+body {
+  @apply px-24
 }
