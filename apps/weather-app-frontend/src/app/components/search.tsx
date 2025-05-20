@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 import React, {useEffect} from 'react'
-import { getCityInfoByLatLon, getGeoCoderInfoByCity, getMultipleCityInfoByLatLon } from '../api/geo/geo-routes'
+import { getGeoCoderInfoByCity, getMultipleCityInfoByLatLon } from '../api/geo/geo-routes'
 import { GeoCoderDataModel } from '../types/geo-coder-data-model'
 import { LocationCardType } from '../types/location-card'
 type SearchProps = {

@@ -1,7 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { GeoCoderData, GeoCoderDataModel } from "@/app/types/geo-coder-data-model";
 import { LocationDataModel } from "@/app/types/location-data-model";
-import { mapOpenWeatherDataToLocationCardType, matchLocationDataToCorrespondingGeoData } from "./helpers";
+import { mapOpenWeatherDataToLocationCardType } from "./helpers";
 import { LocationCardType } from "@/app/types/location-card";
 
 
@@ -18,21 +17,19 @@ export async function getCityInfoByLatLon(lat: number, lon: number): Promise<Loc
 export async function getMultipleCityInfoByLatLon(geoCoderDataModel: GeoCoderDataModel): Promise<LocationCardType[]> {
   const locationUrl = 'http://localhost:3001/api/location/'
 
-  const formattedUrls = geoCoderDataModel.map((geoData: GeoCoderData) => {
-    return `${locationUrl}${geoData.lat}/${geoData.lon}`
+  const pairedData = await Promise.all( geoCoderDataModel.map(async (geoData: GeoCoderData) => {
+      const locationData = await fetch(`${locationUrl}${geoData.lat}/${geoData.lon}`)
+      const resolvedLocationData = await locationData.json();
+      const pairedData: {geoData: GeoCoderData, locationData: LocationDataModel} = {
+        geoData,
+        locationData: resolvedLocationData
+      }
+      return pairedData;
+  }));
+
+  const cards: LocationCardType[] = pairedData.map((dataPair)=> {
+    return mapOpenWeatherDataToLocationCardType(dataPair.locationData, dataPair.geoData);
   })
-
-  const locationData = await Promise.all(
-    formattedUrls.map((url) => {
-      return fetch(url)
-    }
-  ));
-
-  const resolvedLocationData: LocationDataModel[] = await Promise.all(locationData.map(location => location.json()))
-
-  const geoLocationData = matchLocationDataToCorrespondingGeoData(resolvedLocationData, geoCoderDataModel)
-
-  const cards: LocationCardType[] = mapOpenWeatherDataToLocationCardType(geoLocationData)
 
   return cards
 }
