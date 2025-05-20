@@ -4,6 +4,7 @@ import { ConfigService } from '@nestjs/config';
 import { firstValueFrom } from 'rxjs';
 import { LocationDataModel } from './types/location-data-model';
 import { GeoCoderDataModel } from './types/geo-coder-data-model';
+import { mapWeatherErrorToStandardException } from './helpers';
 
 @Injectable()
 export class AppService {
@@ -20,18 +21,26 @@ export class AppService {
   }
 
   async getGeoCoderInfoByCity(cityName: string): Promise<GeoCoderDataModel> {
-    const ApiKey = this.configService.get<string>('OPEN_WEATHER_API_KEY');
-    const url = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=5&appid=${ApiKey}`
-    const response = await firstValueFrom(this.httpService.get(url));
-    const geoCoderDataModel: GeoCoderDataModel = response.data;
-    return geoCoderDataModel;
+    try {
+      const ApiKey = this.configService.get<string>('OPEN_WEATHER_API_KEY');
+      const url = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=5&appid=${ApiKey}`
+      const response = await firstValueFrom(this.httpService.get(url));
+      const geoCoderDataModel: GeoCoderDataModel = response.data;
+      return geoCoderDataModel;
+    } catch (error) {
+        throw mapWeatherErrorToStandardException(error)
+    }
   }
 
-    async getLocationInfoByLatLon(lat: number, lon: number): Promise<LocationDataModel> {
-    const ApiKey = this.configService.get<string>('OPEN_WEATHER_API_KEY');
-    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${ApiKey}`
-    const response = await firstValueFrom(this.httpService.get(url));
-    const locationDataModel: LocationDataModel = response.data;
-    return locationDataModel;
+    async getLocationInfoByLatLon(lat: number, lon: number) {
+    try {
+      const ApiKey = this.configService.get<string>('OPEN_WEATHER_API_KEY');
+      const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${ApiKey}`
+      const response = await firstValueFrom(this.httpService.get(url));
+      const locationDataModel: LocationDataModel = response.data;
+      return locationDataModel;
+    } catch (error) {
+        throw mapWeatherErrorToStandardException(error)
+    }
   }
 }
