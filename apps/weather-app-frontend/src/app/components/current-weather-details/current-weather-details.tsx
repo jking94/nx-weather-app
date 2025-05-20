@@ -20,9 +20,6 @@ const CurrentWeatherDetails: React.FC<CurrentWeatherDetailsProps> = ({geoLocatio
         mt-36
         p-6
         shadow-md
-        borderE
-        border-primary
-        border-solid
         h-full' 
         id='current-weather-details'>
             <section className='pb-24' id='location-details'>
