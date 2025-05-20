@@ -20,7 +20,7 @@ const Card: React.FC<CardProps> = ({children}) => {
         hover:border-primary
         hover:border-solid
         cursor-pointer
-        h-full' 
+        max-w-card' 
         id='card'>
             {children}
         </div>

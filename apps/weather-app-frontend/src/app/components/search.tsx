@@ -3,12 +3,12 @@
 import React, {useEffect} from 'react'
 import { getGeoCoderInfoByCity, getMultipleCityInfoByLatLon } from '../api/geo/geo-routes'
 import { GeoCoderDataModel } from '../types/geo-coder-data-model'
-import { LocationCardType } from '../types/location-card'
+import { GeoLocationData } from '../types/geo-location-data'
 type SearchProps = {
-    setCityCards: (cityCards: LocationCardType[]) => void
+    setGeoLocationData: (geoLocationDataArr: GeoLocationData[] | null) => void
 }
 
-const Search: React.FC<SearchProps> = ({setCityCards}) => {
+const Search: React.FC<SearchProps> = ({setGeoLocationData}) => {
 
   const [cityNameSearch, setCityNameSearch] = React.useState<string>('')
   const [submitDisabled, setSubmitDisabled] = React.useState<boolean>(true)
@@ -25,9 +25,14 @@ const Search: React.FC<SearchProps> = ({setCityCards}) => {
 
     const getCityCards = async () => {
         const cityData: GeoCoderDataModel = await getGeoCoderInfoByCity(cityNameSearch)
-        const cityCards = await getMultipleCityInfoByLatLon(cityData)
-        setCityCards(cityCards)
+        const geoLocationDataArr = await getMultipleCityInfoByLatLon(cityData)
+        setGeoLocationData(geoLocationDataArr)
         setCityNameSearch('')
+    }
+
+    const clearCityCards = async () => {
+        setCityNameSearch('')
+        setGeoLocationData(null)
     }
 
   return (
@@ -36,8 +41,12 @@ const Search: React.FC<SearchProps> = ({setCityCards}) => {
                 <input value={cityNameSearch} className='h-32 px-6 rounded-xl border' type='text' placeholder="Search by city name" id="myInput" onChange={handleCitySearchChange}></input>
                 <button
                     disabled={submitDisabled}
-                    className={`ml-12 px-6 rounded-xl border bg-grey-gradient-right ${submitDisabled ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+                    className={`ml-12 px-6 rounded-xl border bg-grey-gradient-right ${submitDisabled ? '' : 'cursor-pointer'}`}
                     onClick={getCityCards}>Search
+                </button>
+                <button
+                    className={`ml-12 px-6 rounded-xl border bg-grey-gradient-right}`}
+                    onClick={clearCityCards}>Clear
                 </button>
             </div>
         </div>

@@ -42,7 +42,12 @@ module.exports = {
         semibold: '600',
         bold: '700',
         extrabold: '800',
-     },
+      },
+        fontSize: {
+        'sm': '14px',
+        'md': '24px',
+        'lg': '48px', 
+      },
       spacing: {
         '2': '2px',
         '4': '4px',
@@ -54,6 +59,9 @@ module.exports = {
       },
       height: {
         '32': '32px'
+      },
+      maxWidth: {
+        'card': '255px',
       },
       borderWidth: {
         '2px': '2px',
