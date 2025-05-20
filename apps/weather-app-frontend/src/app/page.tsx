@@ -4,12 +4,11 @@ import Search from './components/search';
 import CurrentWeatherCard from './components/current-weather-card';
 import { v4 as uuidv4 } from 'uuid';
 import { GeoLocationData } from './types/geo-location-data';
-import { LocationDataModel } from './types/location-data-model';
-import CurrentWeatherDetails from './components/current-weather-details';
+import CurrentWeatherDetails from './components/current-weather-details/current-weather-details';
 
 export default function Index() {
   const [geoLocationData, setGeoLocationData] = React.useState<GeoLocationData[] | null>(null)
-  const [currentWeatherDetails, setCurrentWeatherDetails] = React.useState<LocationDataModel | null>(null)
+  const [geoLocationDataDetails, setGeoLocationDataDetails] = React.useState<GeoLocationData | null>(null)
 
   return (
     <>
@@ -30,12 +29,11 @@ export default function Index() {
         </div>
         <div className="flex flex-row gap-24 pt-12">
           {geoLocationData.map((geoLocationData) => {
-            return <CurrentWeatherCard key={uuidv4()} geoLocationData={geoLocationData} setCurrentWeatherDetails={setCurrentWeatherDetails}/>
+            return <CurrentWeatherCard key={uuidv4()} geoLocationData={geoLocationData} setGeoLocationDataDetails={setGeoLocationDataDetails}/>
           })}
         </div>
       </>}
-      {currentWeatherDetails && <CurrentWeatherDetails location={currentWeatherDetails} />}
+      {geoLocationDataDetails && geoLocationData && <CurrentWeatherDetails geoLocationData={geoLocationDataDetails} />}
     </>
-
   )
 }

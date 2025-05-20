@@ -9,16 +9,15 @@ const Card: React.FC<CardProps> = ({children}) => {
 
   return (
         <div className='
-        bg-grey-gradient-down
         rounded-xl
         p-6
         shadow-md
-        hover:shadow-lg
+        hover:shadow-xl
         transition-shadow
         duration-300
-        hover:border
-        hover:border-primary
-        hover:border-solid
+        border
+        border-primary
+        border-solid
         cursor-pointer
         max-w-card' 
         id='card'>

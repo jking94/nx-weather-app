@@ -4,14 +4,15 @@ import { roundToWholeNumber } from './helpers'
 import { DEGREESF } from './constants'
 
 type TempuratureProps = {
-    temp: number
+    temp?: number
     classes?: string;
+    title?: string;
 }
 
-const Tempurature: React.FC<TempuratureProps> = ({temp, classes = ''}) => {
+const Tempurature: React.FC<TempuratureProps> = ({temp, classes = '', title = ''}) => {
 
   return (
-    <span className={classes}>{`${roundToWholeNumber(temp)}${DEGREESF}`}</span>
+    <span className={classes}>{temp ? `${roundToWholeNumber(temp)}${DEGREESF}` : '--'}</span>
   )
 }
 
