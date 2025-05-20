@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 import React from 'react'
 import Card from './card';
@@ -11,7 +10,7 @@ type DailyWeatherProps = {
     setCurrentWeatherDetails: (locationDataModel: LocationDataModel) => void
 }
 
-const CurrentWeather: React.FC<DailyWeatherProps> = ({setCurrentWeatherDetails, geoLocationData}) => {
+const CurrentWeatherCard: React.FC<DailyWeatherProps> = ({setCurrentWeatherDetails, geoLocationData}) => {
   const {geoData, locationData} = geoLocationData;
   const handleOnClick = () =>{
   setCurrentWeatherDetails(locationData)
@@ -50,4 +49,4 @@ const CurrentWeather: React.FC<DailyWeatherProps> = ({setCurrentWeatherDetails, 
   )
 }
 
-export default CurrentWeather
+export default CurrentWeatherCard

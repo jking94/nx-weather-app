@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import Search from './components/search';
-import CurrentWeather from './components/current-weather';
+import CurrentWeatherCard from './components/current-weather-card';
 import { v4 as uuidv4 } from 'uuid';
 import { GeoLocationData } from './types/geo-location-data';
 import { LocationDataModel } from './types/location-data-model';
@@ -30,7 +30,7 @@ export default function Index() {
         </div>
         <div className="flex flex-row gap-24 pt-12">
           {geoLocationData.map((geoLocationData) => {
-            return <CurrentWeather key={uuidv4()} geoLocationData={geoLocationData} setCurrentWeatherDetails={setCurrentWeatherDetails}/>
+            return <CurrentWeatherCard key={uuidv4()} geoLocationData={geoLocationData} setCurrentWeatherDetails={setCurrentWeatherDetails}/>
           })}
         </div>
       </>}
