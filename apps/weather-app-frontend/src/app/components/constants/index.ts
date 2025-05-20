@@ -1,0 +1,1 @@
+export const DEGREESF = '\u00B0F'

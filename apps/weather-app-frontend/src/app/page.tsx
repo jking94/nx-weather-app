@@ -1,12 +1,14 @@
 'use client'
 import React from 'react'
 import Search from './components/search';
-import DailyWeather from './components/daily-weather';
-import { LocationCardType } from './types/location-card';
+import CurrentWeatherCard from './components/current-weather-card';
 import { v4 as uuidv4 } from 'uuid';
+import { GeoLocationData } from './types/geo-location-data';
+import CurrentWeatherDetails from './components/current-weather-details/current-weather-details';
 
 export default function Index() {
-  const [cityCards, setCityCards] = React.useState<LocationCardType[]>([])
+  const [geoLocationData, setGeoLocationData] = React.useState<GeoLocationData[] | null>(null)
+  const [geoLocationDataDetails, setGeoLocationDataDetails] = React.useState<GeoLocationData | null>(null)
 
   return (
     <>
@@ -18,14 +20,20 @@ export default function Index() {
       </div>
       <hr/>
       <div className='flex justify-center pt-12'>
-        <Search setCityCards={setCityCards} />
+        <Search setGeoLocationData={setGeoLocationData} />
       </div>
-      {cityCards && <div className="grid grid-cols-5 gap-24 pt-36">
-        {cityCards.map((cityCard) => {
-          return <DailyWeather key={uuidv4()} cityWeatherData={cityCard}/>
-        })}
-      </div>}
+      {geoLocationData &&
+      <>
+        <div className='flex justify-center pt-12'>
+          <h3 className='font-light'>Select a tile below to see more details</h3>
+        </div>
+        <div className="flex flex-row gap-24 pt-12">
+          {geoLocationData.map((geoLocationData) => {
+            return <CurrentWeatherCard key={uuidv4()} geoLocationData={geoLocationData} setGeoLocationDataDetails={setGeoLocationDataDetails}/>
+          })}
+        </div>
+      </>}
+      {geoLocationDataDetails && geoLocationData && <CurrentWeatherDetails geoLocationData={geoLocationDataDetails} />}
     </>
-
   )
 }
