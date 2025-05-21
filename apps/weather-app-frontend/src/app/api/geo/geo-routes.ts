@@ -4,7 +4,7 @@ import { ApiResponse } from "./types";
 import { GeoLocationData } from "@/app/types/geo-location-data";
 
 
-export async function getGeoCoderInfoByCity(cityName: string): ApiResponse<GeoCoderDataModel> {
+export async function getLocationDataByCityName(cityName: string): ApiResponse<GeoCoderDataModel> {
   try{
     const res = await fetch(`http://localhost:3001/api/${cityName}`)
     if(!res.ok) {
@@ -17,10 +17,10 @@ export async function getGeoCoderInfoByCity(cityName: string): ApiResponse<GeoCo
   }
 }
 
-//Investigate data issue with data returned by getGeoCoderInfoByCity if
+//Investigate data issue with data returned by getLocationDataByCityName if
 //if data shows no further issues, refactor this function and only make call
 //for weather details when card is clicked
-export async function getMultipleCityInfoByLatLon(
+export async function getLocationsDetailsByLatLon(
   geoCoderDataModel: GeoCoderDataModel
 ): ApiResponse<GeoLocationData[]> {
   const locationUrl = 'http://localhost:3001/api/location/';

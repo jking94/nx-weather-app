@@ -8,13 +8,13 @@ export class AppController {
 
   @Get(':cityName')
   @UseFilters(HttpExceptionFilter)
-  getGeoCoderInfoByCity(@Param('cityName') cityName: string) {
-    return this.appService.getGeoCoderInfoByCity(cityName);
+  getLocationDataByCityName(@Param('cityName') cityName: string) {
+    return this.appService.getLocationDataByCityName(cityName);
   }
 
   @Get('location/:lat/:lon')
   @UseFilters(HttpExceptionFilter)
-  getLocationInfoByLatLon(@Param('lat') latitude: number, @Param('lon') longitude: number) {
-    return this.appService.getLocationInfoByLatLon(latitude, longitude);
+  getLocationDetailsByLatLon(@Param('lat') latitude: number, @Param('lon') longitude: number) {
+    return this.appService.getLocationDetailsByLatLon(latitude, longitude);
   }
 }
