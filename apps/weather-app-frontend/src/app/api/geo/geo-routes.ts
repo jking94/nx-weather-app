@@ -1,38 +1,46 @@
-import { GeoCoderData, GeoCoderDataModel } from "@/app/types/geo-coder-data-model";
-import { LocationDataModel } from "@/app/types/location-data-model";
-import { GeoLocationHandled } from "./types";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { GeoCoderDataModel } from "@/app/types/geo-coder-data-model";
+import { ApiResponse } from "./types";
+import { GeoLocationData } from "@/app/types/geo-location-data";
 
 
-export async function getGeoCoderInfoByCity(cityName: string): Promise<GeoCoderDataModel | null> {
-  const res = await fetch(`http://localhost:3001/api/${cityName}`)
-  if(res.ok){
-    return await res.json()
-  } return null
-}
-
-export async function getMultipleCityInfoByLatLon(geoCoderDataModel: GeoCoderDataModel): Promise<GeoLocationHandled[] | null> {
-    const locationUrl = 'http://localhost:3001/api/location/'
-
-    const geoLocationHandledData: GeoLocationHandled[] = await Promise.all( geoCoderDataModel.map(async (geoData: GeoCoderData) => {
-      const locationData = await fetch(`${locationUrl}${geoData.lat}/${geoData.lon}`)
-      if(locationData.ok){
-        const resolvedLocationData = await locationData.json();
-        const pairedData: {geoData: GeoCoderData, locationData: LocationDataModel} = {
-          geoData,
-          locationData: resolvedLocationData
-        }
-        return pairedData;
-      } else {
-        return { error: true }
-      }
-    }));
-    const isError = geoLocationHandledData.find((handledDataObj) => {
-      return Object.hasOwn(handledDataObj, 'error')
-    })
-    if(isError){
-      return null
-    } else {
-      return geoLocationHandledData
+export async function getGeoCoderInfoByCity(cityName: string): ApiResponse<GeoCoderDataModel> {
+  try{
+    const res = await fetch(`http://localhost:3001/api/${cityName}`)
+    if(!res.ok) {
+      throw new Error(`Failed to fetch geo data for ${cityName}`);
     }
+    const geoCoderData = await res.json();
+    return {data: geoCoderData}
+  } catch (error: any) {
+    return { error: error.message }
+  }
 }
 
+
+export async function getMultipleCityInfoByLatLon(
+  geoCoderDataModel: GeoCoderDataModel
+): ApiResponse<GeoLocationData[]> {
+  const locationUrl = 'http://localhost:3001/api/location/';
+  try {
+    const geoLocationData = await Promise.all(
+      geoCoderDataModel.map(async (geoData) => {
+        try {
+          const res = await fetch(`${locationUrl}${geoData.lat}/${geoData.lon}`);
+          if (!res.ok) {
+            throw new Error();
+          }
+
+          const locationData = await res.json();
+          return { geoData, locationData };
+        } catch (error) {
+          throw new Error(`Failed to fetch location for ${geoData.lat},${geoData.lon}`);
+        }
+      })
+    );
+
+    return { data: geoLocationData };
+  } catch (error: any) {
+    return { error: error.message };
+  }
+}

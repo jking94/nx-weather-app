@@ -3,8 +3,8 @@ import React from 'react'
 import Search from './components/search';
 import CurrentWeatherCard from './components/current-weather-card';
 import { v4 as uuidv4 } from 'uuid';
-import { GeoLocationData } from './types/geo-location-data';
 import CurrentWeatherDetails from './components/current-weather-details/current-weather-details';
+import { GeoLocationData } from './types/geo-location-data';
 
 export default function Index() {
   const [geoLocationData, setGeoLocationData] = React.useState<GeoLocationData[] | null>(null)
@@ -20,7 +20,7 @@ export default function Index() {
       </div>
       <hr/>
       <div className='flex justify-center pt-12'>
-        <Search setGeoLocationData={setGeoLocationData} />
+        <Search setGeoLocationData={setGeoLocationData} setGeoLocationDataDetails={setGeoLocationDataDetails} />
       </div>
       {geoLocationData &&
       <>
@@ -33,7 +33,7 @@ export default function Index() {
           })}
         </div>
       </>}
-      {geoLocationDataDetails && geoLocationData && <CurrentWeatherDetails geoLocationData={geoLocationDataDetails} />}
+      {geoLocationDataDetails && <CurrentWeatherDetails geoLocationData={geoLocationDataDetails} />}
     </>
   )
 }

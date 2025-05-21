@@ -2,15 +2,15 @@
 'use client'
 import React, {useEffect} from 'react'
 import { getGeoCoderInfoByCity, getMultipleCityInfoByLatLon } from '../api/geo/geo-routes'
-import { GeoCoderDataModel } from '../types/geo-coder-data-model'
-import { GeoLocationHandled } from '../api/geo/types'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { GeoLocationData } from '../types/geo-location-data'
 type SearchProps = {
-    setGeoLocationData: (geoLocationDataArr: GeoLocationHandled[] | null) => void
+    setGeoLocationData: (geoLocationDataArr: GeoLocationData[] | null) => void
+    setGeoLocationDataDetails: (geoLocationDeatils: GeoLocationData | null) => void
 }
 
-const Search: React.FC<SearchProps> = ({setGeoLocationData}) => {
+const Search: React.FC<SearchProps> = ({ setGeoLocationData, setGeoLocationDataDetails }) => {
 
   const [cityNameSearch, setCityNameSearch] = React.useState<string>('')
   const [submitDisabled, setSubmitDisabled] = React.useState<boolean>(true)
@@ -18,7 +18,9 @@ const Search: React.FC<SearchProps> = ({setGeoLocationData}) => {
   useEffect(() => {
     if(cityNameSearch !== ''){
         setSubmitDisabled(false)
-    } else setSubmitDisabled(true)
+    } else {
+        setSubmitDisabled(true)
+    }
   }, [cityNameSearch]); 
 
     const handleCitySearchChange = (event: any) => {
@@ -26,23 +28,25 @@ const Search: React.FC<SearchProps> = ({setGeoLocationData}) => {
     }
 
     const getCityCards = async () => {
-        const cityData: GeoCoderDataModel | null = await getGeoCoderInfoByCity(cityNameSearch)
-        if(cityData){
-            const geoLocationDataArr = await getMultipleCityInfoByLatLon(cityData)
-            if(geoLocationDataArr) {
-                setGeoLocationData(geoLocationDataArr)
-                setCityNameSearch('')
-            } else {
-                toast.error('Failed to retrieve location data')
-            }
+        const cityData = await getGeoCoderInfoByCity(cityNameSearch)
+        if('error' in cityData){
+            toast.error('Failed to retrieve geo data')
         } else {
-            toast.error('Failed to retreive city data')
+            const geoLocationDataArr = await getMultipleCityInfoByLatLon(cityData.data)
+            if('error' in geoLocationDataArr) {
+                toast.error('Failed to retrieve location data')
+  
+            } else {
+                setGeoLocationData(geoLocationDataArr.data)
+                setCityNameSearch('')
+            }
         }
     }
 
     const clearCityCards = async () => {
         setCityNameSearch('')
         setGeoLocationData(null)
+        setGeoLocationDataDetails(null)
     }
 
   return (

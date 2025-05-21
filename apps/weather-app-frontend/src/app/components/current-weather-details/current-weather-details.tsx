@@ -15,7 +15,8 @@ type CurrentWeatherDetailsProps = {
 const CurrentWeatherDetails: React.FC<CurrentWeatherDetailsProps> = ({geoLocationData}) => {
   return (
         <div className='
-        bg-grey-gradient-down
+        border
+        border-solid
         rounded-xl
         mt-36
         p-6
