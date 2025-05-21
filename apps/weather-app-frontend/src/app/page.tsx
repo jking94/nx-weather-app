@@ -20,7 +20,7 @@ export default function Index() {
       </div>
       <hr/>
       <div className='flex justify-center pt-12'>
-        <Search setGeoLocationData={setGeoLocationData} />
+        <Search setGeoLocationData={setGeoLocationData} setGeoLocationDataDetails={setGeoLocationDataDetails} />
       </div>
       {geoLocationData &&
       <>
@@ -33,7 +33,7 @@ export default function Index() {
           })}
         </div>
       </>}
-      {geoLocationDataDetails && geoLocationData && <CurrentWeatherDetails geoLocationData={geoLocationDataDetails} />}
+      {geoLocationDataDetails && <CurrentWeatherDetails geoLocationData={geoLocationDataDetails} />}
     </>
   )
 }

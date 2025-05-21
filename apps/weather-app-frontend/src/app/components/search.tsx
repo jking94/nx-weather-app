@@ -7,9 +7,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import { GeoLocationData } from '../types/geo-location-data'
 type SearchProps = {
     setGeoLocationData: (geoLocationDataArr: GeoLocationData[] | null) => void
+    setGeoLocationDataDetails: (geoLocationDeatils: GeoLocationData | null) => void
 }
 
-const Search: React.FC<SearchProps> = ({ setGeoLocationData }) => {
+const Search: React.FC<SearchProps> = ({ setGeoLocationData, setGeoLocationDataDetails }) => {
 
   const [cityNameSearch, setCityNameSearch] = React.useState<string>('')
   const [submitDisabled, setSubmitDisabled] = React.useState<boolean>(true)
@@ -17,7 +18,9 @@ const Search: React.FC<SearchProps> = ({ setGeoLocationData }) => {
   useEffect(() => {
     if(cityNameSearch !== ''){
         setSubmitDisabled(false)
-    } else setSubmitDisabled(true)
+    } else {
+        setSubmitDisabled(true)
+    }
   }, [cityNameSearch]); 
 
     const handleCitySearchChange = (event: any) => {
@@ -43,6 +46,7 @@ const Search: React.FC<SearchProps> = ({ setGeoLocationData }) => {
     const clearCityCards = async () => {
         setCityNameSearch('')
         setGeoLocationData(null)
+        setGeoLocationDataDetails(null)
     }
 
   return (
