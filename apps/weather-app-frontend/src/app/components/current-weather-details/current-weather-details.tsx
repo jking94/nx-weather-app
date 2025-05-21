@@ -15,6 +15,7 @@ type CurrentWeatherDetailsProps = {
 const CurrentWeatherDetails: React.FC<CurrentWeatherDetailsProps> = ({geoLocationData}) => {
   return (
         <div className='
+        bg-secondary
         border
         border-solid
         rounded-xl
@@ -23,16 +24,16 @@ const CurrentWeatherDetails: React.FC<CurrentWeatherDetailsProps> = ({geoLocatio
         shadow-md
         h-full' 
         id='current-weather-details'>
-            <section className='pb-24' id='location-details'>
+            <section className='text-primary pb-24' id='location-details'>
                 <span className='text-xl'>{geoLocationData?.geoData.name}, </span>
                 <span className='text-xl'>{geoLocationData?.geoData.state}, </span>
                 <span className='text-xl'>{geoLocationData?.geoData.country}</span>
             </section>
-            <section className='flex flex-row gap-24 justify-center' id='weather-details'>
-                <DetailSection id='tempurature-details'>
+            <section className='flex flex-col md:flex-row gap-24 justify-center' id='weather-details'>
+                <DetailSection classes='flex-1' id='tempurature-details'>
                     <div>
                         {geoLocationData?.locationData.weather.map((weather) => {
-                        return <div title={`${weather.main} - ${weather.description}`} className='text-lg font-bold' key={uuidv4()}>{weather.main} - {weather.description}</div>
+                        return <div title={`${weather.main} - ${weather.description}`} className='text-lg font-bold text-secondary' key={uuidv4()}>{weather.main} - {weather.description}</div>
                         })}
                     </div>
                     <div title='Temperature' className='flex items-center'>
@@ -49,24 +50,24 @@ const CurrentWeatherDetails: React.FC<CurrentWeatherDetailsProps> = ({geoLocatio
                        <Tempurature classes='text-lg font-bold' temp={geoLocationData?.locationData.main.temp_min}/>
                     </DetailWithLabel>
                 </DetailSection>
-                <DetailSection id='additional-details'>
+                <DetailSection classes='flex-1' id='additional-details'>
                     <div title='Atmospheric pressure on the sea level'>
-                        <p className='text-lg mt-0 font-bold'>Atmospheric Pressure: </p>
-                        <p className='text-lg'>{roundToWholeNumber(geoLocationData?.locationData.main.pressure ?? 0)} hPa</p>
+                        <p className='text-lg mt-0 font-bold text-secondary'>Atmospheric Pressure: </p>
+                        <p className='text-lg text-secondary'>{roundToWholeNumber(geoLocationData?.locationData.main.pressure ?? 0)} hPa</p>
                     </div>
                     <div title='Atmospheric pressure on the sea level'>
-                        <p className='text-lg mt-0 font-bold'>Humidity: </p>
-                        <p className='text-lg'>{roundToWholeNumber(geoLocationData?.locationData.main.humidity ?? 0)}%</p>
+                        <p className='text-lg mt-0 font-bold text-secondary'>Humidity: </p>
+                        <p className='text-lg text-secondary'>{roundToWholeNumber(geoLocationData?.locationData.main.humidity ?? 0)}%</p>
                     </div>
                 </DetailSection>
-                <DetailSection id='sunrise-and-set-details'>
+                <DetailSection classes='flex-1' id='sunrise-and-set-details'>
                     <div title='Wind Speed'>
-                        <p className='text-lg mt-0 font-bold'>Wind Speed: </p>
-                        <p className='text-lg'>{roundToWholeNumber(geoLocationData?.locationData.wind.speed ?? 0)} miles/hour</p>
+                        <p className='text-lg mt-0 font-bold text-secondary'>Wind Speed: </p>
+                        <p className='text-lg text-secondary'>{roundToWholeNumber(geoLocationData?.locationData.wind.speed ?? 0)} miles/hour</p>
                     </div>
                     <div title='Wind Gust'>
-                        <p className='text-lg mt-0 font-bold'>Wind Gust: </p>
-                        <p className='text-lg'>{roundToWholeNumber(geoLocationData?.locationData.wind.gust ?? 0)} miles/hour</p>
+                        <p className='text-lg mt-0 font-bold text-secondary'>Wind Gust: </p>
+                        <p className='text-lg text-secondary'>{roundToWholeNumber(geoLocationData?.locationData.wind.gust ?? 0)} miles/hour</p>
                     </div>
                 </DetailSection>
             </section>

@@ -11,7 +11,7 @@ const DetailWithLabel: React.FC<DetailWithLabelProps> = ({labelText, children, c
 
   return (
         <div title={title} className={containerClasses}>
-            <span className=' text-lg'>{labelText} </span>
+            <span className='text-secondary text-lg'>{labelText} </span>
             {children}
         </div>
     )

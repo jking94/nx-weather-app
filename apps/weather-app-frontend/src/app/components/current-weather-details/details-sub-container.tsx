@@ -10,7 +10,7 @@ type DetailSectionProps = {
 const DetailSection: React.FC<DetailSectionProps> = ({children, classes = '', id}) => {
 
   return (
-        <div id={id} className={`${classes} bg-white rounded-xl p-6 shadow-md`}>
+        <div id={id} className={`${classes} bg-primary rounded-xl p-6 shadow-md`}>
             {children}
         </div>
   )
