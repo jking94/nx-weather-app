@@ -4,11 +4,11 @@ import Card from './card';
 import { GeoLocationData } from '../types/geo-location-data';
 type DailyWeatherProps = {
     geoLocationData: GeoLocationData;
-    setGeoLocationDataDetails: (geoLocationData: GeoLocationData) => void
+    setGeoLocationDataDetails: (geoLocationData: GeoLocationData | null) => void
 }
 
 const CurrentWeatherCard: React.FC<DailyWeatherProps> = ({setGeoLocationDataDetails, geoLocationData}) => {
-  const {geoData} = geoLocationData;
+  const {geoData} = geoLocationData
   const handleOnClick = () =>{
   setGeoLocationDataDetails(geoLocationData)
 }

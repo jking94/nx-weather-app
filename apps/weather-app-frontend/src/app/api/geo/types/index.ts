@@ -1,3 +1,3 @@
-import { GeoLocationData } from "@/app/types/geo-location-data";
-
-export type GeoLocationHandled = GeoLocationData | { error: boolean }
+export type SuccessRes<T> = { data: T };
+export type ErrorRes = { error: string };
+export type ApiResponse<T> = Promise<SuccessRes<T> | ErrorRes>;

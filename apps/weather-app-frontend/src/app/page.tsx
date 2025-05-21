@@ -3,8 +3,8 @@ import React from 'react'
 import Search from './components/search';
 import CurrentWeatherCard from './components/current-weather-card';
 import { v4 as uuidv4 } from 'uuid';
-import { GeoLocationData } from './types/geo-location-data';
 import CurrentWeatherDetails from './components/current-weather-details/current-weather-details';
+import { GeoLocationData } from './types/geo-location-data';
 
 export default function Index() {
   const [geoLocationData, setGeoLocationData] = React.useState<GeoLocationData[] | null>(null)
