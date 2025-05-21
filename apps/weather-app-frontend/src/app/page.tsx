@@ -19,7 +19,7 @@ export default function Index() {
         </div>
       </div>
       <div className='flex justify-center pt-12'>
-        <Search setGeoLocationData={setGeoLocationData} setGeoLocationDataDetails={setGeoLocationDataDetails} />
+        <Search data-testid="search" setGeoLocationData={setGeoLocationData} setGeoLocationDataDetails={setGeoLocationDataDetails} />
       </div>
       {geoLocationData && geoLocationData.length < 1 && 
       <div className='flex justify-center pt-12'>
@@ -34,13 +34,13 @@ export default function Index() {
         </div>}
         <div className="flex flex-col md:flex-row gap-24 pt-12">
           {geoLocationData.map((geoLocationData) => {
-            return <CurrentWeatherCard key={uuidv4()} geoLocationData={geoLocationData} setGeoLocationDataDetails={setGeoLocationDataDetails}/>
+            return <CurrentWeatherCard data-testid="current-weather-card" key={uuidv4()} geoLocationData={geoLocationData} setGeoLocationDataDetails={setGeoLocationDataDetails}/>
           })}
         </div>
       </>}
       {geoLocationDataDetails &&
       <div className='flex justify-center'>
-        <CurrentWeatherDetails geoLocationData={geoLocationDataDetails} />
+        <CurrentWeatherDetails data-testid="current-weather-details" geoLocationData={geoLocationDataDetails} />
       </div>
       }
     </>

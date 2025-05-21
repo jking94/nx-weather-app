@@ -58,6 +58,7 @@ const Search: React.FC<SearchProps> = ({ setGeoLocationData, setGeoLocationDataD
             <div id='search-city-input'>
                 <div className='flex justify-center'>
                     <input
+                        data-testid="search-input"
                         value={cityNameSearch}
                         className='h-32 px-6 rounded-xl border'
                         type='text'
@@ -68,11 +69,13 @@ const Search: React.FC<SearchProps> = ({ setGeoLocationData, setGeoLocationDataD
                     }}>
                     </input>
                     <button
+                        data-testid="submit-button"
                         disabled={submitDisabled}
                         className={`ml-12 px-6 rounded-xl border text-secondary bg-primary shadow-md hover:shadow-lg transition-shadow duration-100 ${submitDisabled ? '' : 'cursor-pointer'}`}
                         onClick={getCityCards}>Search
                     </button>
                     <button
+                        data-testid="clear-button"
                         className='ml-12 px-6 rounded-xl border text-primary bg-secondary cursor-pointer'
                         onClick={clearCityCards}>Clear
                     </button>
