@@ -29,8 +29,8 @@ const CurrentWeatherDetails: React.FC<CurrentWeatherDetailsProps> = ({geoLocatio
                 <span className='text-xl'>{geoLocationData?.geoData.state}, </span>
                 <span className='text-xl'>{geoLocationData?.geoData.country}</span>
             </section>
-            <section className='flex flex-row gap-24 justify-center' id='weather-details'>
-                <DetailSection id='tempurature-details'>
+            <section className='flex flex-col md:flex-row gap-24 justify-center' id='weather-details'>
+                <DetailSection classes='flex-1' id='tempurature-details'>
                     <div>
                         {geoLocationData?.locationData.weather.map((weather) => {
                         return <div title={`${weather.main} - ${weather.description}`} className='text-lg font-bold text-secondary' key={uuidv4()}>{weather.main} - {weather.description}</div>
@@ -50,7 +50,7 @@ const CurrentWeatherDetails: React.FC<CurrentWeatherDetailsProps> = ({geoLocatio
                        <Tempurature classes='text-lg font-bold' temp={geoLocationData?.locationData.main.temp_min}/>
                     </DetailWithLabel>
                 </DetailSection>
-                <DetailSection id='additional-details'>
+                <DetailSection classes='flex-1' id='additional-details'>
                     <div title='Atmospheric pressure on the sea level'>
                         <p className='text-lg mt-0 font-bold text-secondary'>Atmospheric Pressure: </p>
                         <p className='text-lg text-secondary'>{roundToWholeNumber(geoLocationData?.locationData.main.pressure ?? 0)} hPa</p>
@@ -60,7 +60,7 @@ const CurrentWeatherDetails: React.FC<CurrentWeatherDetailsProps> = ({geoLocatio
                         <p className='text-lg text-secondary'>{roundToWholeNumber(geoLocationData?.locationData.main.humidity ?? 0)}%</p>
                     </div>
                 </DetailSection>
-                <DetailSection id='sunrise-and-set-details'>
+                <DetailSection classes='flex-1' id='sunrise-and-set-details'>
                     <div title='Wind Speed'>
                         <p className='text-lg mt-0 font-bold text-secondary'>Wind Speed: </p>
                         <p className='text-lg text-secondary'>{roundToWholeNumber(geoLocationData?.locationData.wind.speed ?? 0)} miles/hour</p>

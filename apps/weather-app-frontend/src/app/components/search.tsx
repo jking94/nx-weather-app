@@ -30,6 +30,7 @@ const Search: React.FC<SearchProps> = ({ setGeoLocationData, setGeoLocationDataD
     }
 
     const getCityCards = async () => {
+        setGeoLocationDataDetails(null)
         const cityData = await getGeoCoderInfoByCity(cityNameSearch)
         if('error' in cityData){
             toast.error('Failed to retrieve geo data')
@@ -56,14 +57,23 @@ const Search: React.FC<SearchProps> = ({ setGeoLocationData, setGeoLocationDataD
             <ToastContainer position="top-right" autoClose={3000} />
             <div id='search-city-input'>
                 <div className='flex justify-center'>
-                    <input value={cityNameSearch} className='h-32 px-6 rounded-xl border' type='text' placeholder="Search by city name" id="myInput" onChange={handleCitySearchChange}></input>
+                    <input
+                        value={cityNameSearch}
+                        className='h-32 px-6 rounded-xl border'
+                        type='text'
+                        placeholder="Search by city name"
+                        id="myInput"
+                        onChange={handleCitySearchChange}
+                        onKeyDown={(event) => {if (event.key === 'Enter') {getCityCards()}
+                    }}>
+                    </input>
                     <button
                         disabled={submitDisabled}
-                        className={`ml-12 px-6 rounded-xl border text-secondary bg-primary ${submitDisabled ? '' : 'cursor-pointer'}`}
+                        className={`ml-12 px-6 rounded-xl border text-secondary bg-primary shadow-md hover:shadow-lg transition-shadow duration-100 ${submitDisabled ? '' : 'cursor-pointer'}`}
                         onClick={getCityCards}>Search
                     </button>
                     <button
-                        className='ml-12 px-6 rounded-xl border text-primary bg-secondary'
+                        className='ml-12 px-6 rounded-xl border text-primary bg-secondary cursor-pointer'
                         onClick={clearCityCards}>Clear
                     </button>
                 </div>

@@ -18,22 +18,31 @@ export default function Index() {
           <p className='font-light mt-0 text-tertiary'>Search for the current weather by city name</p>
         </div>
       </div>
-      {/* <hr/> */}
       <div className='flex justify-center pt-12'>
         <Search setGeoLocationData={setGeoLocationData} setGeoLocationDataDetails={setGeoLocationDataDetails} />
       </div>
+      {geoLocationData && geoLocationData.length < 1 && 
+      <div className='flex justify-center pt-12'>
+        <p>No results found</p>
+      </div>
+      }
       {geoLocationData &&
       <>
+        {geoLocationData && geoLocationData.length > 0 &&
         <div className='flex justify-center'>
           <p className='font-light text-tertiary'>Select a tile below to see more details</p>
-        </div>
-        <div className="flex flex-row gap-24 pt-12">
+        </div>}
+        <div className="flex flex-col md:flex-row gap-24 pt-12">
           {geoLocationData.map((geoLocationData) => {
             return <CurrentWeatherCard key={uuidv4()} geoLocationData={geoLocationData} setGeoLocationDataDetails={setGeoLocationDataDetails}/>
           })}
         </div>
       </>}
-      {geoLocationDataDetails && <CurrentWeatherDetails geoLocationData={geoLocationDataDetails} />}
+      {geoLocationDataDetails &&
+      <div className='flex justify-center'>
+        <CurrentWeatherDetails geoLocationData={geoLocationDataDetails} />
+      </div>
+      }
     </>
   )
 }
