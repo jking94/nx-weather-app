@@ -51,6 +51,7 @@ export class AppService {
       //Log callDuration of API call to external service such as DataDog for metrics purposes
       return locationDataModel;
     } catch (error) {
+        //Log to external service such as DataDog
         this.logger.error('Failed to GET GeoCoder data by cityName')
         throw mapWeatherErrorToStandardException(error)
     }

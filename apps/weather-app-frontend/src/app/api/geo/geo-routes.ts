@@ -1,31 +1,39 @@
 import { GeoCoderData, GeoCoderDataModel } from "@/app/types/geo-coder-data-model";
 import { LocationDataModel } from "@/app/types/location-data-model";
-import { GeoLocationData } from "@/app/types/geo-location-data";
+// import { GeoLocationData } from "@/app/types/geo-location-data";
+import { GeoLocationHandled } from "./types";
 
 
-export async function getGeoCoderInfoByCity(cityName: string): Promise<GeoCoderDataModel> {
+export async function getGeoCoderInfoByCity(cityName: string): Promise<GeoCoderDataModel | null> {
   const res = await fetch(`http://localhost:3001/api/${cityName}`)
-  return await res.json()
+  if(res.ok){
+    return await res.json()
+  } return null
 }
 
-export async function getCityInfoByLatLon(lat: number, lon: number): Promise<LocationDataModel> {
-  const res = await fetch(`http://localhost:3001/api/location/${lat}/${lon}`)
-  return await res.json()
-}
+export async function getMultipleCityInfoByLatLon(geoCoderDataModel: GeoCoderDataModel): Promise<GeoLocationHandled[] | null> {
+    const locationUrl = 'http://localhost:3001/api/location/'
 
-export async function getMultipleCityInfoByLatLon(geoCoderDataModel: GeoCoderDataModel): Promise<GeoLocationData[]> {
-  const locationUrl = 'http://localhost:3001/api/location/'
-
-  const geoLocationDataArr: GeoLocationData[] = await Promise.all( geoCoderDataModel.map(async (geoData: GeoCoderData) => {
+    const geoLocationHandledData: GeoLocationHandled[] = await Promise.all( geoCoderDataModel.map(async (geoData: GeoCoderData) => {
       const locationData = await fetch(`${locationUrl}${geoData.lat}/${geoData.lon}`)
-      const resolvedLocationData = await locationData.json();
-      const pairedData: {geoData: GeoCoderData, locationData: LocationDataModel} = {
-        geoData,
-        locationData: resolvedLocationData
+      if(locationData.ok){
+        const resolvedLocationData = await locationData.json();
+        const pairedData: {geoData: GeoCoderData, locationData: LocationDataModel} = {
+          geoData,
+          locationData: resolvedLocationData
+        }
+        return pairedData;
+      } else {
+        return { error: true }
       }
-      return pairedData;
-  }));
-
-  return geoLocationDataArr;
+    }));
+    const isError = geoLocationHandledData.find((handledDataObj) => {
+      return Object.hasOwn(handledDataObj, 'error')
+    })
+    if(isError){
+      return null
+    } else {
+      return geoLocationHandledData
+    }
 }
 

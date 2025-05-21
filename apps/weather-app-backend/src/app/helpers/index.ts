@@ -1,7 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { BadRequestException, HttpException, InternalServerErrorException, NotFoundException, UnauthorizedException } from "@nestjs/common";
 
   export const mapWeatherErrorToStandardException = (error: any): HttpException => {
-    console.log('hotpink - error: ', error)
     const statusCode = error?.status;
 
     switch (statusCode) {
