@@ -33,7 +33,7 @@ module.exports = {
         'grey-gradient-up': 'var(--color-grey-gradient-up)'
       },
       fontFamily: {
-        "sans": ['arial', 'sans-serif']
+        "sans": ['Helvetica', 'sans-serif']
       },
       fontWeight: {
         light: '300',

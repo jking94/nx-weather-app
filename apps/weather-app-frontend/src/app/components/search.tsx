@@ -3,9 +3,11 @@
 import React, {useEffect} from 'react'
 import { getGeoCoderInfoByCity, getMultipleCityInfoByLatLon } from '../api/geo/geo-routes'
 import { GeoCoderDataModel } from '../types/geo-coder-data-model'
-import { GeoLocationData } from '../types/geo-location-data'
+import { GeoLocationHandled } from '../api/geo/types'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 type SearchProps = {
-    setGeoLocationData: (geoLocationDataArr: GeoLocationData[] | null) => void
+    setGeoLocationData: (geoLocationDataArr: GeoLocationHandled[] | null) => void
 }
 
 const Search: React.FC<SearchProps> = ({setGeoLocationData}) => {
@@ -24,10 +26,18 @@ const Search: React.FC<SearchProps> = ({setGeoLocationData}) => {
     }
 
     const getCityCards = async () => {
-        const cityData: GeoCoderDataModel = await getGeoCoderInfoByCity(cityNameSearch)
-        const geoLocationDataArr = await getMultipleCityInfoByLatLon(cityData)
-        setGeoLocationData(geoLocationDataArr)
-        setCityNameSearch('')
+        const cityData: GeoCoderDataModel | null = await getGeoCoderInfoByCity(cityNameSearch)
+        if(cityData){
+            const geoLocationDataArr = await getMultipleCityInfoByLatLon(cityData)
+            if(geoLocationDataArr) {
+                setGeoLocationData(geoLocationDataArr)
+                setCityNameSearch('')
+            } else {
+                toast.error('Failed to retrieve location data')
+            }
+        } else {
+            toast.error('Failed to retreive city data')
+        }
     }
 
     const clearCityCards = async () => {
@@ -36,20 +46,23 @@ const Search: React.FC<SearchProps> = ({setGeoLocationData}) => {
     }
 
   return (
-        <div id='search-city-input'>
-            <div className='flex justify-center'>
-                <input value={cityNameSearch} className='h-32 px-6 rounded-xl border' type='text' placeholder="Search by city name" id="myInput" onChange={handleCitySearchChange}></input>
-                <button
-                    disabled={submitDisabled}
-                    className={`ml-12 px-6 rounded-xl border bg-grey-gradient-right ${submitDisabled ? '' : 'cursor-pointer'}`}
-                    onClick={getCityCards}>Search
-                </button>
-                <button
-                    className={`ml-12 px-6 rounded-xl border bg-grey-gradient-right}`}
-                    onClick={clearCityCards}>Clear
-                </button>
+        <>
+            <ToastContainer position="top-right" autoClose={3000} />
+            <div id='search-city-input'>
+                <div className='flex justify-center'>
+                    <input value={cityNameSearch} className='h-32 px-6 rounded-xl border' type='text' placeholder="Search by city name" id="myInput" onChange={handleCitySearchChange}></input>
+                    <button
+                        disabled={submitDisabled}
+                        className={`ml-12 px-6 rounded-xl border bg-grey-gradient-right ${submitDisabled ? '' : 'cursor-pointer'}`}
+                        onClick={getCityCards}>Search
+                    </button>
+                    <button
+                        className={`ml-12 px-6 rounded-xl border bg-grey-gradient-right}`}
+                        onClick={clearCityCards}>Clear
+                    </button>
+                </div>
             </div>
-        </div>
+        </>
   )
 }
 

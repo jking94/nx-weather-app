@@ -2,12 +2,52 @@
   "name": "@nx-weather-app/weather-app-frontend",
   "version": "0.0.1",
   "private": true,
-  "nx": {
-    "name": "weather-app-frontend"
-  },
   "dependencies": {
     "next": "~15.2.4",
     "react": "19.0.0",
     "react-dom": "19.0.0"
+  },
+  "nx": {
+    "name": "weather-app-frontend",
+    "targets": {
+      "build": {
+        "executor": "@nx/next:build",
+        "outputs": ["{options.outputPath}"],
+        "options": {
+          "outputPath": "dist/apps/weather-app-frontend"
+        },
+        "configurations": {
+          "development": {
+            "dev": true
+          },
+          "production": {
+            "dev": false
+          }
+        }
+      },
+      "serve": {
+        "executor": "@nx/next:server",
+        "defaultConfiguration": "development",
+        "options": {
+          "buildTarget": "weather-app-frontend:build"
+        },
+        "configurations": {
+          "development": {
+            "buildTarget": "weather-app-frontend:build:development",
+            "port": 3000
+          },
+          "production": {
+            "buildTarget": "weather-app-frontend:build:production"
+          }
+        }
+      },
+      "export": {
+        "executor": "@nx/next:export",
+        "options": {
+          "buildTarget": "weather-app-frontend:build",
+          "out": "dist/apps/weather-app-frontend-export"
+        }
+      }
+    }
   }
 }
