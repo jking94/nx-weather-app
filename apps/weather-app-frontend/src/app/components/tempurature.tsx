@@ -12,7 +12,7 @@ type TempuratureProps = {
 const Tempurature: React.FC<TempuratureProps> = ({temp, classes = '', title = ''}) => {
 
   return (
-    <span className={classes}>{temp ? `${roundToWholeNumber(temp)}${DEGREESF}` : '--'}</span>
+    <span className={`${classes} text-secondary`}>{temp ? `${roundToWholeNumber(temp)}${DEGREESF}` : '--'}</span>
   )
 }
 

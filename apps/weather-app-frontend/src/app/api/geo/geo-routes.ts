@@ -17,7 +17,9 @@ export async function getGeoCoderInfoByCity(cityName: string): ApiResponse<GeoCo
   }
 }
 
-
+//Investigate data issue with data returned by getGeoCoderInfoByCity if
+//if data shows no further issues, refactor this function and only make call
+//for weather details when card is clicked
 export async function getMultipleCityInfoByLatLon(
   geoCoderDataModel: GeoCoderDataModel
 ): ApiResponse<GeoLocationData[]> {

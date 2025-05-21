@@ -15,17 +15,17 @@ export default function Index() {
       <div className='flex justify-center'>
         <div className='flex flex-col items-center'>
         <h1 className='font-light'>Current Weather</h1>
-          <p className='font-light mt-0 text-grey'>Search for the current weather by city name</p>
+          <p className='font-light mt-0 text-tertiary'>Search for the current weather by city name</p>
         </div>
       </div>
-      <hr/>
+      {/* <hr/> */}
       <div className='flex justify-center pt-12'>
         <Search setGeoLocationData={setGeoLocationData} setGeoLocationDataDetails={setGeoLocationDataDetails} />
       </div>
       {geoLocationData &&
       <>
-        <div className='flex justify-center pt-12'>
-          <h3 className='font-light'>Select a tile below to see more details</h3>
+        <div className='flex justify-center'>
+          <p className='font-light text-tertiary'>Select a tile below to see more details</p>
         </div>
         <div className="flex flex-row gap-24 pt-12">
           {geoLocationData.map((geoLocationData) => {

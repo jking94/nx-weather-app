@@ -10,6 +10,8 @@ type SearchProps = {
     setGeoLocationDataDetails: (geoLocationDeatils: GeoLocationData | null) => void
 }
 
+//OpenWeather API does not support pagination, in the future include more fine grained filtering functionality
+//within the search and populate dropdown from search bar instead of card UI
 const Search: React.FC<SearchProps> = ({ setGeoLocationData, setGeoLocationDataDetails }) => {
 
   const [cityNameSearch, setCityNameSearch] = React.useState<string>('')
@@ -57,11 +59,11 @@ const Search: React.FC<SearchProps> = ({ setGeoLocationData, setGeoLocationDataD
                     <input value={cityNameSearch} className='h-32 px-6 rounded-xl border' type='text' placeholder="Search by city name" id="myInput" onChange={handleCitySearchChange}></input>
                     <button
                         disabled={submitDisabled}
-                        className={`ml-12 px-6 rounded-xl border bg-grey-gradient-right ${submitDisabled ? '' : 'cursor-pointer'}`}
+                        className={`ml-12 px-6 rounded-xl border text-secondary bg-primary ${submitDisabled ? '' : 'cursor-pointer'}`}
                         onClick={getCityCards}>Search
                     </button>
                     <button
-                        className={`ml-12 px-6 rounded-xl border bg-grey-gradient-right}`}
+                        className='ml-12 px-6 rounded-xl border text-primary bg-secondary'
                         onClick={clearCityCards}>Clear
                     </button>
                 </div>

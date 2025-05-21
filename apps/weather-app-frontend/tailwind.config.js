@@ -30,9 +30,9 @@ module.exports = {
         '2xl': '1536px',
       },
       colors: {
-        primary: "var(--color-primary)",
-        lightGrey: "var(--color-light-grey)",
-        grey: "var(--color-grey)"
+        primary: "var(--color-black)",
+        secondary: "var(--color-white)",
+        tertiary: "var(--color-grey)"
       },
       backgroundImage: {
         'grey-gradient-right': 'var(--color-grey-gradient-right)',
@@ -40,7 +40,7 @@ module.exports = {
         'grey-gradient-up': 'var(--color-grey-gradient-up)'
       },
       fontFamily: {
-        "sans": ['Helvetica', 'sans-serif']
+        "sans": [	'Verdana', 'Geneva', 'sans-serif']
       },
       fontWeight: {
         light: '300',
