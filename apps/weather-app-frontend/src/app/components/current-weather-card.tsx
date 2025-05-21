@@ -13,7 +13,7 @@ const CurrentWeatherCard: React.FC<DailyWeatherProps> = ({setGeoLocationDataDeta
   setGeoLocationDataDetails(geoLocationData)
 }
   return (
-    <div className='flex-1' onClick={handleOnClick}>
+    <div className='flex-1 flex justify-center w-full' onClick={handleOnClick}>
       <Card>
           <div className='mb-2 font-bold'>{geoData.name},</div>
           <div className='mb-2'>{geoData.state},</div>
