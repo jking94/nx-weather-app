@@ -21,7 +21,7 @@ export class AppService {
     return response.data;
   }
 
-  async getGeoCoderInfoByCity(cityName: string): Promise<GeoCoderDataModel> {
+  async getLocationDataByCityName(cityName: string): Promise<GeoCoderDataModel> {
     try {
       const startTime = new Date().getTime();
       const ApiKey = this.configService.get<string>('OPEN_WEATHER_API_KEY');
@@ -39,7 +39,7 @@ export class AppService {
     }
   }
 
-  async getLocationInfoByLatLon(lat: number, lon: number) {
+  async getLocationDetailsByLatLon(lat: number, lon: number) {
     try {
       const startTime = new Date().getTime();
       const ApiKey = this.configService.get<string>('OPEN_WEATHER_API_KEY');

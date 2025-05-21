@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 import React, {useEffect} from 'react'
-import { getGeoCoderInfoByCity, getMultipleCityInfoByLatLon } from '../api/geo/geo-routes'
+import { getLocationDataByCityName, getLocationsDetailsByLatLon } from '../api/geo/geo-routes'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { GeoLocationData } from '../types/geo-location-data'
@@ -31,11 +31,11 @@ const Search: React.FC<SearchProps> = ({ setGeoLocationData, setGeoLocationDataD
 
     const getCityCards = async () => {
         setGeoLocationDataDetails(null)
-        const cityData = await getGeoCoderInfoByCity(cityNameSearch)
+        const cityData = await getLocationDataByCityName(cityNameSearch)
         if('error' in cityData){
             toast.error('Failed to retrieve geo data')
         } else {
-            const geoLocationDataArr = await getMultipleCityInfoByLatLon(cityData.data)
+            const geoLocationDataArr = await getLocationsDetailsByLatLon(cityData.data)
             if('error' in geoLocationDataArr) {
                 toast.error('Failed to retrieve location data')
   
