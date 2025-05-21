@@ -1,6 +1,5 @@
 import { GeoCoderData, GeoCoderDataModel } from "@/app/types/geo-coder-data-model";
 import { LocationDataModel } from "@/app/types/location-data-model";
-// import { GeoLocationData } from "@/app/types/geo-location-data";
 import { GeoLocationHandled } from "./types";
 
 
